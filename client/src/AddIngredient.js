@@ -5,36 +5,41 @@ import axios from 'axios'
 class AddIngredient extends React.Component {
   state = { name: '' }
 
-handleSubmit = (e) => {
-  e.preventDefault()//need this so page doesnt refresh and jack things up
-  const ingredient = { name: this.state.name }
-  axios.post('/api/ingredients', { ingredient })
-    .then( () => this.resetForm() )
-}
+  handleSubmit = (e) => {
+    e.preventDefault()
+    // params.require(:ingredient).permit(:name)
+    // { ingredient: { name: 'Salt' } }
+    const ingredient = { name: this.state.name }
+    axios.post('/api/ingredients', { ingredient })
+      .then( () => this.resetForm() )
+  }
 
-handleChange = (e) => {
-  this.setState({ name: e.target.value })
-}
+  handleChange = (e) => {
+    this.setState({ name: e.target.value })
+  }
 
-resetForm = () => {
-  this.setState({ name: '' })
-  this.props.history.push('/ingredients')
-}
+  clicky = (e) => {
+    console.log(e.target)
+  }
 
+  resetForm = () => {
+    this.setState({ name: '' })
+    this.props.history.push('/ingredients')
+  }
 
-  render(){
+  render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Input 
+        <Form.Input
           placeholder="Add Ingredient"
           value={this.state.name}
           onChange={this.handleChange}
-          required 
-          />
-          <Form.Button type="button" onClick={this.resetForm}>
-            Cancel
-          </Form.Button>
-          <Form.Button>Add</Form.Button>
+          required
+        />
+        <Form.Button type="button" onClick={this.resetForm}> 
+          Cancel
+        </Form.Button>
+        <Form.Button>Add</Form.Button>
       </Form>
     )
   }
