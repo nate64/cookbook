@@ -6,7 +6,10 @@ class Api::RecipesController < ApplicationController
   end
 
   def show
-    render json: @recipe 
+    render json: @recipe,
+    id: @recipe.id,
+    description: @recipe.description,
+    ingredients: @recipe.recipe_ingredients,
   end
 
   def create
